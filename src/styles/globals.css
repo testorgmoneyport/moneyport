@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fafafa;
+    /* --foreground: #ededed; */
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  max-width: 1250px !important;
+}
+
+#sectionTwo h1 {
+  font-size: 42px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+#sectionTwo h2 {
+  font-size: 20px;
+  margin: 0 auto;
+  background-color: #FFC700;
+  width: fit-content;
+}
+
+#sectionThree .card{
+  background-color: #F3F8FF;
+  padding: 10px;
+  width: 290px;
+  height: 106px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  grid-template-rows: 60px 200px;
+  gap: 15px;
+  align-items: center;
+}
