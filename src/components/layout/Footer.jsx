@@ -48,7 +48,7 @@ const Footer = () => {
       <hr />
       <div className="container mx-auto">
         <h1 className="my-8 text-gray-500 text-sm md:text-xl text-center">
-          © Copyright 2024 by MoneyPort Bilgi Teknolojileri Yatırım A.Ş. All Rights reserved.
+          © Copyright 2024 by MoneyPort Bilgi Teknolojileri Yatırım A.Ş. All Rights reserved
         </h1>
       </div>
     </footer>
