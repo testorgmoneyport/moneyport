@@ -50,3 +50,8 @@ body {
   gap: 15px;
   align-items: center;
 }
+
+.swiper{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

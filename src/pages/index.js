@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import SectionOne from "@/components/ui/SectionOne";
 import SectionTwo from "@/components/ui/SectionTwo";
 import SectionThree from "@/components/ui/SectionThree";
+import SectionFour from "@/components/ui/SectionFour";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +20,7 @@ export default function Home() {
       <SectionOne />
       <SectionTwo />
       <SectionThree />
+      <SectionFour />
     </div>
   );
 }
