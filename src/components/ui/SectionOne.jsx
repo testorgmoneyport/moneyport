@@ -23,7 +23,7 @@ const SectionOne = () => {
           </div>
           <Link href="/register">
             <span
-              className="mt-6 text-lg md:text-xl text-[#424242] hover:text-blue-500 transition-colors"
+              className="mt-6 text-lg md:text-xl text-[#424242] hover:text-[#FFC700] transition-colors"
               style={{ opacity: 0.86 }}
             >
               Sende Kayıt Ol Hemen Başla &gt;&gt;&gt;

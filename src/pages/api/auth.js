@@ -1,5 +1,3 @@
-
-// pages/api/auth.js
 import { getPool } from '../../utils/db';
 import bcrypt from 'bcryptjs';
 
@@ -8,10 +6,27 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Yalnızca POST metodu destekleniyor' });
   }
 
-  const { username, email, password, role } = req.body;
+  const { username, email, password, confirmPassword, portfolioSize } = req.body;
 
-  if (!username || !email || !password) {
+  // Form validation
+  if (!username || !email || !password || !confirmPassword || !portfolioSize) {
     return res.status(400).json({ message: 'Tüm alanları doldurun' });
+  }
+
+  // Password validation
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: 'Şifreler eşleşmiyor' });
+  }
+
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: 'Geçerli bir email adresi girin' });
+  }
+
+  // Password strength validation
+  if (password.length < 8) {
+    return res.status(400).json({ message: 'Şifre en az 8 karakter olmalıdır' });
   }
 
   const pool = getPool();
@@ -36,18 +51,36 @@ export default async function handler(req, res) {
 
     // Kullanıcı verilerini veritabanına ekle
     const query = `
-      INSERT INTO users (user_name, user_email, password_hash, role)
-      VALUES ($1, $2, $3, $4)
-      RETURNING id, user_name, user_email, role
+      INSERT INTO users (
+        user_name, 
+        user_email, 
+        password_hash, 
+        portfolio_size,
+        role,
+        created_at
+      )
+      VALUES ($1, $2, $3, $4, $5, NOW())
+      RETURNING id, user_name, user_email, portfolio_size, role, created_at
     `;
-    const values = [username, email, hashedPassword, role || 'user'];
+    
+    const values = [
+      username, 
+      email, 
+      hashedPassword, 
+      portfolioSize,
+      'user' // default role
+    ];
     
     const result = await client.query(query, values);
     await client.query('COMMIT');
 
+    // Hassas bilgileri çıkartarak kullanıcı verisini döndür
+    const user = result.rows[0];
+    delete user.password_hash;
+
     res.status(200).json({
       message: 'Kayıt başarılı',
-      user: result.rows[0]
+      user
     });
   } catch (error) {
     await client.query('ROLLBACK');

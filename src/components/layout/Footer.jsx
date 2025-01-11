@@ -1,5 +1,5 @@
-import React from 'react'
-import Image from 'next/image'
+import React from "react";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -7,14 +7,14 @@ const Footer = () => {
       <hr />
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between my-12 gap-6">
         {/* Image component with Next.js */}
-        <Image 
-          src="/public/img/thyao.png" 
-          alt="Logo" 
-          width={256} // Width in pixels
-          height={96}  // Height in pixels
-          className="w-64 h-24" 
+        <Image
+          src="/assets/logos/5.png" // Logo dosyanızın yolu
+          alt="MoneyPortLogo"
+          width={300} // Görselin genişliği
+          height={150} // Görselin yüksekliği
+          className="cursor-pointer" // İsteğe bağlı CSS sınıfı
         />
-        <h1 className="text-2xl md:text-4xl text-gray-300 text-center md:text-left">
+        <h1 className="text-xl md:text-4xl text-gray-500 text-center md:text-left">
           Yatırımlarınızı Yönetmenin En Kolay Yolu
         </h1>
       </div>
@@ -38,7 +38,9 @@ const Footer = () => {
         </div>
         <div className="flex flex-col gap-2">
           <h3 className="text-lg md:text-xl mb-2 font-bold">Bize Ulaşın</h3>
-          <p className="text-gray-500 text-sm">Osmangazi Üniversitesi, Meşelik Kampüsü</p>
+          <p className="text-gray-500 text-sm">
+            Osmangazi Üniversitesi, Meşelik Kampüsü
+          </p>
           <p className="text-gray-500 text-sm">ETGB Teknoparkı Kat:1 No:103</p>
           <p className="text-gray-500 text-sm">Odunpazarı/Eskişehir</p>
           <p className="text-gray-500 text-sm">0850 500 2677</p>
@@ -48,11 +50,12 @@ const Footer = () => {
       <hr />
       <div className="container mx-auto">
         <h1 className="my-8 text-gray-500 text-sm md:text-xl text-center">
-          © Copyright 2024 by MoneyPort Bilgi Teknolojileri Yatırım A.Ş. All Rights reserved
+          © Copyright 2024 by <a href="/" className="underline">MoneyPort Bilgi Teknolojileri Yatırım A.Ş.</a>  All
+          Rights reserved
         </h1>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

@@ -15,16 +15,16 @@ export default function Header() {
   return (
     <header className="bg-white text-black shadow-md">
       <nav className="container mx-auto">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-4 px-4 lg:px-0">
           {/* Logo */}
           <div className="text-2xl font-bold">
             <Link href="/">
               <Image
-                src="/assets/logos/5.png" // Logo dosyanızın yolu
+                src="/assets/logos/5.png" 
                 alt="MoneyPortLogo"
-                width={200} // Görselin genişliği
-                height={50} // Görselin yüksekliği
-                className="cursor-pointer" // İsteğe bağlı CSS sınıfı
+                width={200} 
+                height={50} 
+                className="cursor-pointer"
               />
             </Link>{" "}
           </div>
@@ -32,7 +32,7 @@ export default function Header() {
           {/* Ana Menü */}
           <ul className="hidden md:flex space-x-8">
             <li>
-              <Link href="/" className="hover:text-gray-400">
+              <Link href="/" className="hover:text-[#FFC700]">
                 Ana Sayfa
               </Link>
             </li>
@@ -41,7 +41,7 @@ export default function Header() {
             <li className="group relative">
               <Link
                 href="/pricing"
-                className="hover:text-gray-400 flex items-center gap-1"
+                className="hover:text-[#FFC700] flex items-center gap-1"
               >
                 Fiyatlar
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-200" />
@@ -49,7 +49,7 @@ export default function Header() {
               <div className="invisible group-hover:visible absolute left-0 w-[600px] mt-6 p-6 bg-white shadow-xl rounded-xl border border-gray-100 transition-all duration-300 opacity-0 group-hover:opacity-100 z-50">
                 <div className="grid grid-cols-3 gap-8">
                   <div>
-                    <h3 className="font-bold text-lg mb-3">Temel Paket</h3>
+                    <h3 className="font-bold text-lg mb-3">BIST</h3>
                     <ul className="space-y-2">
                       <li>
                         <Link
@@ -70,7 +70,7 @@ export default function Header() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-3">Standart Paket</h3>
+                    <h3 className="font-bold text-lg mb-3">DÖVİZ</h3>
                     <ul className="space-y-2">
                       <li>
                         <Link
@@ -91,7 +91,28 @@ export default function Header() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-3">Premium Paket</h3>
+                    <h3 className="font-bold text-lg mb-3">Kripto</h3>
+                    <ul className="space-y-2">
+                      <li>
+                        <Link
+                          href="/pricing/premium"
+                          className="text-gray-600 hover:text-gray-900"
+                        >
+                          Özellikler
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/pricing/premium/compare"
+                          className="text-gray-600 hover:text-gray-900"
+                        >
+                          Karşılaştırma
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-3">Kıymetli Madenler</h3>
                     <ul className="space-y-2">
                       <li>
                         <Link
@@ -116,22 +137,22 @@ export default function Header() {
             </li>
 
             <li>
-              <Link href="/portfolio" className="hover:text-gray-400">
+              <Link href="/portfolio" className="hover:text-[#FFC700]">
                 Portföy
               </Link>
             </li>
             <li>
-              <Link href="/blog" className="hover:text-gray-400">
+              <Link href="/blog" className="hover:text-[#FFC700]">
                 Blog
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-gray-400">
+              <Link href="/about" className="hover:text-[#FFC700]">
                 Hakkımızda
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-gray-400">
+              <Link href="/contact" className="hover:text-[#FFC700]">
                 İletişim
               </Link>
             </li>
@@ -170,18 +191,6 @@ export default function Header() {
                   >
                     Deutsch
                   </li>
-                  <li
-                    className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
-                    onClick={() => setLanguage("Rusca")}
-                  >
-                    Russian
-                  </li>
-                  <li
-                    className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
-                    onClick={() => setLanguage("Ukraynaca")}
-                  >
-                    Ukranian
-                  </li>
                 </ul>
               </div>
             </div>
@@ -218,7 +227,7 @@ export default function Header() {
                   <div className="space-y-2">
                     <Link
                       href="/login"
-                      className="block w-full py-2 px-4 text-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="block w-full py-2 px-4 text-center bg-[#FFC700] text-black rounded-lg hover:bg-[#ffc800bf] transition-colors"
                     >
                       Giriş Yap
                     </Link>
