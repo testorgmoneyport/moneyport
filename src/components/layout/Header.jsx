@@ -170,6 +170,18 @@ export default function Header() {
                   >
                     Deutsch
                   </li>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
+                    onClick={() => setLanguage("Rusca")}
+                  >
+                    Russian
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
+                    onClick={() => setLanguage("Ukraynaca")}
+                  >
+                    Ukranian
+                  </li>
                 </ul>
               </div>
             </div>
