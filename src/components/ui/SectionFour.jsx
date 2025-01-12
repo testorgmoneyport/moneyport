@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { useRouter } from 'next/router';
 
 const SectionFour = () => {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
         setIsLoading(true);
         const response = await fetch('/api/news');
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch news');
         }
-        
+
         const data = await response.json();
         setNews(data);
       } catch (error) {
@@ -50,6 +52,10 @@ const SectionFour = () => {
     );
   }
 
+  const handleClick = (slug) => {
+    router.push(`/news/${slug}`);
+  };
+
   return (
     <section id="sectionFour" className="container mx-auto px-4 h-auto mt-12">
       <div className="flex flex-col mb-8">
@@ -67,7 +73,7 @@ const SectionFour = () => {
             slidesPerView={1}
             breakpoints={{
               640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 }
+              1024: { slidesPerView: 3 },
             }}
             loop={true}
             pagination={{
@@ -83,10 +89,13 @@ const SectionFour = () => {
           >
             {news.map((item) => (
               <SwiperSlide key={item.id}>
-                <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                <div
+                  className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer"
+                  onClick={() => handleClick(item.slug)} // Slug kullanarak yönlendirme
+                >
                   <div className="relative h-48">
                     <Image
-                      src={item.image_url || "/default-news-image.jpg"}
+                      src={item.image_url || '/default-news-image.jpg'}
                       alt={item.title}
                       fill
                       className="object-cover"
@@ -106,39 +115,6 @@ const SectionFour = () => {
           </Swiper>
         </div>
       </div>
-
-      <style jsx global>{`
-        .swiper-button-next,
-        .swiper-button-prev {
-          color: #000;
-          background-color: rgba(255, 255, 255, 0.9);
-          padding: 20px;
-          border-radius: 50%;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-          width: 40px;
-          height: 40px;
-        }
-
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-          font-size: 16px;
-          font-weight: bold;
-        }
-
-        .swiper-button-disabled {
-          opacity: 0.5;
-        }
-
-        .swiper-pagination-bullet {
-          background: #000;
-          opacity: 0.5;
-        }
-
-        .swiper-pagination-bullet-active {
-          background: #000;
-          opacity: 1;
-        }
-      `}</style>
     </section>
   );
 };
