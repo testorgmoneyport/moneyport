@@ -67,6 +67,9 @@ const SectionFour = () => {
           <p className="text-gray-700 font-semibold text-lg md:text-xl">
             denemeslm
           </p>
+          <p className="text-gray-700 font-semibold text-lg md:text-xl">
+            Yatırımlarfgjnşdfgr burada.
+          </p>
         </div>
 
         <div className="relative">
