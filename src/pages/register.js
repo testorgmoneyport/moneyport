@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { useRouter } from "next/router"; // Router import edildi
+import { useRouter } from "next/router";
 
 export default function Register() {
-  const router = useRouter(); // Router tanımlandı
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -12,13 +12,17 @@ export default function Register() {
     password: "",
     confirmPassword: "",
     portfolioSize: "0 - 50.000₺",
+    termsAccepted: false,
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, type, value, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
-  // Form state'ini sıfırlama fonksiyonu
   const resetForm = () => {
     setFormData({
       username: "",
@@ -26,6 +30,8 @@ export default function Register() {
       password: "",
       confirmPassword: "",
       portfolioSize: "0 - 50.000₺",
+      termsAccepted: false,
+      privacyAccepted: false,
     });
   };
 
@@ -34,6 +40,11 @@ export default function Register() {
 
     if (formData.password !== formData.confirmPassword) {
       alert("Şifreler eşleşmiyor!");
+      return;
+    }
+
+    if (!formData.termsAccepted) {
+      alert("Kayıt olmadan önce şartları kabul etmelisiniz");
       return;
     }
 
@@ -47,8 +58,8 @@ export default function Register() {
       });
 
       alert(response.data.message);
-      resetForm(); // Form temizlendi
-      router.push("/login"); // Login sayfasına yönlendirildi
+      resetForm();
+      router.push("/login");
     } catch (error) {
       alert(error.response?.data?.message || "Kayıt sırasında bir hata oluştu");
     }
@@ -63,12 +74,12 @@ export default function Register() {
         {/* Sol Sütun */}
         <div className="w-full md:w-1/2 flex items-center justify-center">
           <Image
-            src="/assets/img/hero_3.png" // Telefon görselinin yolu
+            src="/assets/img/hero_3.png"
             alt="Phone"
             width={1000}
             height={1000}
             className="object-contain"
-          />{" "}
+          />
         </div>
 
         {/* Sağ Sütun */}
@@ -83,6 +94,7 @@ export default function Register() {
               kayıt ol, tüm yatırımlarını tek bir noktadan yönetmenin keyfini
               yaşa!
             </p>
+            {/* Form alanları */}
             <div>
               <label
                 htmlFor="username"
@@ -149,8 +161,8 @@ export default function Register() {
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Şifre Tekrarı"
-                value={formData.confirmPassword} // Eklendi
-                onChange={handleChange} // Eklendi
+                value={formData.confirmPassword}
+                onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
                 required
               />
@@ -180,6 +192,34 @@ export default function Register() {
                 </option>
                 <option value="1.000.000₺ +">1.000.000₺ +</option>
               </select>
+            </div>
+
+            {/* Checkbox alanları */}
+            <div className="flex items-start gap-2">
+              <input
+                type="checkbox"
+                id="termsAccepted"
+                name="termsAccepted"
+                checked={formData.termsAccepted}
+                onChange={handleChange}
+              />
+              <label htmlFor="termsAccepted" className="text-[#64748B] text-[12px]">
+                Hesap Sözleşmesi ve Ekleri Kabul Ediyorum.
+              </label>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <input
+                type="checkbox"
+                id="privacyAccepted"
+                name="privacyAccepted"
+                onChange={handleChange}
+              />
+              <label htmlFor="privacyAccepted" className="text-[#64748B] text-[12px]">
+                İletişim bilgilerime kampanya, tanıtım ve reklam içerikli ticari
+                elektronik ileti gönderilmesine, bu amaçla kişisel verilerimin
+                işlenmesine ve tedarikçilerinizle paylaşılmasına izin veriyorum.{" "}
+              </label>
             </div>
 
             <button
