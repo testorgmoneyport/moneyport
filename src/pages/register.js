@@ -207,7 +207,19 @@ export default function Register() {
                 Hesap Sözleşmesi ve Ekleri Kabul Ediyorum.
               </label>
             </div>
-
+            <div className="flex items-start gap-2">
+              <input
+                type="checkbox"
+                id="privacyAccepted"
+                name="privacyAccepted"
+                onChange={handleChange}
+              />
+              <label htmlFor="privacyAccepted" className="text-[#64748B] text-[12px]">
+                İletişim bilgilerime kampanya, tanıtım ve reklam içerikli ticari
+                elektronik ileti gönderilmesine, bu amaçla kişisel verilerimin
+                işlenmesine ve tedarikçilerinizle paylaşılmasına izin veriyorum.{" "}
+              </label>
+            </div>
 
             <button
               type="submit"

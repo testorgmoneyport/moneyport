@@ -95,7 +95,12 @@ export default function Login() {
                 required
               />
             </div>
-
+            <button
+              type="submit"
+              className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Giriş Yap
+            </button>
            
           </form>
         </div>
