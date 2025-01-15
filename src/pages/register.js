@@ -7,12 +7,15 @@ export default function Register() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
     portfolioSize: "0 - 50.000₺",
     termsAccepted: false,
+    privacyAccepted: false,
   });
 
   const handleChange = (e) => {
@@ -25,6 +28,8 @@ export default function Register() {
 
   const resetForm = () => {
     setFormData({
+      firstName: "",
+      lastName: "",
       username: "",
       email: "",
       password: "",
@@ -50,6 +55,8 @@ export default function Register() {
 
     try {
       const response = await axios.post("/api/auth", {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         username: formData.username,
         email: formData.email,
         password: formData.password,
@@ -66,10 +73,25 @@ export default function Register() {
   };
 
   return (
-    <div className="container mx-auto">
-      <h1 className="py-16 text-3xl text-center font-bold">
-        MoneyPort'un Ayrıcalıklı Dünyasına Katılmana 1 Adım Kaldı!
-      </h1>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Breadcrumb */}
+      <div className="py-12">
+        <nav className="flex text-gray-600 text-sm">
+          <a href="/" className="hover:text-gray-900">Ana Sayfa</a>
+          <span className="mx-2">/</span>
+          <span className="text-gray-900">Kayıt Ol</span>
+        </nav>
+      </div>
+
+      <div className="flex justify-center pb-8">
+  <h1 className="text-center text-2xl sm:text-3xl lg:text-4xl font-bold">
+    MoneyPort'un Ayrıcalıklı Dünyasına Katılmana 1 Adım Kaldı!
+  </h1>
+</div>
+
+
+
+
       <div className="flex flex-col-reverse md:flex-row w-full gap-10">
         {/* Sol Sütun */}
         <div className="w-full md:w-1/2 flex items-center justify-center">
@@ -78,7 +100,7 @@ export default function Register() {
             alt="Phone"
             width={1000}
             height={1000}
-            className="object-contain"
+            className="object-contain px-4 sm:px-0"
           />
         </div>
 
@@ -86,30 +108,69 @@ export default function Register() {
         <div className="w-full md:w-1/2 flex items-center justify-center">
           <form
             onSubmit={handleSubmit}
-            className="w-full max-w-md flex flex-col gap-4 border border-gray-400 p-4"
+            className="w-full max-w-md flex flex-col gap-4 border border-gray-400 p-4 rounded-lg"
           >
             <h1 className="font-semibold text-2xl">Kayıt Ol</h1>
             <p className="text-[#64748B]">
-              MoneyPort’a kayıt olmak tamamen ücretsiz! Sende MoneyPort’a hemen
+              MoneyPort’a kayıt olmak tamamen ücretsiz! Sen de MoneyPort’a hemen
               kayıt ol, tüm yatırımlarını tek bir noktadan yönetmenin keyfini
               yaşa!
             </p>
             {/* Form alanları */}
             <div>
               <label
+                htmlFor="firstName"
+                className="block mb-2 font-medium text-gray-700"
+              >
+                Ad
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="Adınızı girin."
+                value={formData.firstName}
+                onChange={handleChange}
+                className="p-2 border border-gray-300 rounded w-full"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="lastName"
+                className="block mb-2 font-medium text-gray-700"
+              >
+                Soyad
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Soyadınızı girin."
+                value={formData.lastName}
+                onChange={handleChange}
+                className="p-2 border border-gray-300 rounded w-full"
+                required
+              />
+            </div>
+
+            <div>
+              <label
                 htmlFor="username"
                 className="block mb-2 font-medium text-gray-700"
               >
-                Ad-Soyad
+                Kullanıcı Adı
               </label>
               <input
                 type="text"
                 id="username"
                 name="username"
-                placeholder="Kullanıcı Adı"
+                placeholder="Kullanıcı Adınızı girin."
                 value={formData.username}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
+                required
               />
             </div>
 
@@ -124,10 +185,11 @@ export default function Register() {
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Email"
+                placeholder="Mail adresinizi girin."
                 value={formData.email}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
+                required
               />
             </div>
 
@@ -142,10 +204,11 @@ export default function Register() {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Şifre"
+                placeholder="Şifrenizi girin."
                 value={formData.password}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
+                required
               />
             </div>
 
@@ -160,7 +223,7 @@ export default function Register() {
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
-                placeholder="Şifre Tekrarı"
+                placeholder="Şifrenizi tekrar girin."
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
@@ -212,6 +275,7 @@ export default function Register() {
                 type="checkbox"
                 id="privacyAccepted"
                 name="privacyAccepted"
+                checked={formData.privacyAccepted}
                 onChange={handleChange}
               />
               <label htmlFor="privacyAccepted" className="text-[#64748B] text-[12px]">
