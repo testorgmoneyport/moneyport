@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 export default function Contact() {
-  const [message, setMessage] = useState("");
-
+  const [message, setMessage] = useState(""); // Başlangıçta mesaj boş
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -12,26 +11,18 @@ export default function Contact() {
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: json,
-      });
-      const result = await response.json();
-      if (result.success) {
-        setMessage("Mesajınız başarıyla gönderildi!");
-      } else {
-        setMessage("Mesajınız gönderilirken bir hata oluştu.");
-      }
-    } catch (error) {
-      setMessage("Bir hata oluştu. Lütfen tekrar deneyin.");
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: json,
+    });
+    const result = await response.json();
+    if (result.success) {
+      console.log(result);
     }
-
-    setTimeout(() => setMessage(""), 5000);
   }
 
   return (
@@ -39,14 +30,12 @@ export default function Contact() {
       {/* Breadcrumb */}
       <div className="py-8 sm:py-12 overflow-x-auto">
         <nav className="flex text-gray-600 text-sm">
-          <a href="/" className="hover:text-gray-900">
-            Ana Sayfa
-          </a>
+          <a href="/" className="hover:text-gray-900">Ana Sayfa</a>
           <span className="mx-2">/</span>
           <span className="text-gray-900">İletişim</span>
         </nav>
       </div>
-
+  
       <div className="flex flex-col-reverse md:flex-row w-full gap-6 md:gap-10 items-center">
         {/* Sol Sütun */}
         <div className="w-full md:w-1/2 flex items-center justify-center py-6 md:py-0">
@@ -68,25 +57,8 @@ export default function Contact() {
                 BİZİMLE İLETİŞİME GEÇİN
               </h1>
               <p className="text-[#64748B] text-sm sm:text-base text-center md:text-left">
-                MoneyPort ekibi olarak sorularınızı yanıtlamaya ve size yardımcı
-                olmaya her zaman hazırız.
+                MoneyPort ekibi olarak sorularınızı yanıtlamaya ve size yardımcı olmaya her zaman hazırız.
               </p>
-
-              {/* Bildirim Mesajı */}
-              <div>
-                {message && (
-                  <div
-                    className={`p-4 mb-4 rounded ${
-                      message.includes("başarıyla")
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {message}
-                  </div>
-                )}
-              </div>
-
               <div>
                 <label
                   htmlFor="name"
