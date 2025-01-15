@@ -128,7 +128,7 @@ export default function Register() {
                 type="text"
                 id="firstName"
                 name="firstName"
-                placeholder="Adınızı girin."
+                placeholder="Adınızı girin"
                 value={formData.firstName}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
@@ -147,7 +147,7 @@ export default function Register() {
                 type="text"
                 id="lastName"
                 name="lastName"
-                placeholder="Soyadınızı girin."
+                placeholder="Soyadınızı girin"
                 value={formData.lastName}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
@@ -166,7 +166,7 @@ export default function Register() {
                 type="text"
                 id="username"
                 name="username"
-                placeholder="Kullanıcı Adınızı girin."
+                placeholder="Kullanıcı Adınızı girin"
                 value={formData.username}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
@@ -185,7 +185,7 @@ export default function Register() {
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Mail adresinizi girin."
+                placeholder="Mail adresinizi girin"
                 value={formData.email}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
@@ -223,7 +223,7 @@ export default function Register() {
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
-                placeholder="Şifrenizi tekrar girin."
+                placeholder="Şifrenizi tekrar girin"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
