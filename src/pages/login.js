@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 
 export default function Login() {
@@ -130,13 +131,10 @@ export default function Login() {
             </div>
              {/* Şifremi Unuttum Linki */}
              <div className="text-right">
-              <a
-                href="/forgot-password"
-                className="text-blue-500 text-sm hover:underline"
-              >
-                Şifremi Unuttum
-              </a>
-            </div>
+  <Link href="/forgotpassword" className="text-blue-500 text-sm hover:underline">
+    Şifremi Unuttum
+  </Link>
+</div>
             <button
               type="submit"
               className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition focus:ring focus:ring-blue-200"
@@ -147,5 +145,7 @@ export default function Login() {
         </div>
       </div>
     </div>
+
   );
 }
+
