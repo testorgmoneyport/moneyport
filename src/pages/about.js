@@ -1,6 +1,14 @@
 export default function About() {
   return (
     <div className="container mx-auto">
+       {/* Breadcrumb */}
+       <div className="py-8 sm:py-12 overflow-x-auto">
+        <nav className="flex text-gray-600 text-sm">
+          <a href="/" className="hover:text-gray-900">Ana Sayfa</a>
+          <span className="mx-2">/</span>
+          <span className="text-gray-900">Hakkımızda</span>
+        </nav>
+      </div>
       <div
         className="flex min-h-screen bg-cover bg-center"
         style={{

@@ -137,7 +137,7 @@ export default function Login() {
 </div>
             <button
               type="submit"
-              className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition focus:ring focus:ring-blue-200"
+              className="block w-full py-2 px-4 text-center bg-[#FFC700] text-black rounded-lg hover:bg-[#ffc800bf] transition-colors"
             >
               Giriş Yap
             </button>

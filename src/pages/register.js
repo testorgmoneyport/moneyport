@@ -88,10 +88,6 @@ export default function Register() {
     MoneyPort'un Ayrıcalıklı Dünyasına Katılmana 1 Adım Kaldı!
   </h1>
 </div>
-
-
-
-
       <div className="flex flex-col-reverse md:flex-row w-full gap-10">
         {/* Sol Sütun */}
         <div className="w-full md:w-1/2 flex items-center justify-center">
@@ -287,7 +283,7 @@ export default function Register() {
 
             <button
               type="submit"
-              className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+              className="block w-full py-2 px-4 text-center bg-[#FFC700] text-black rounded-lg hover:bg-[#ffc800bf] transition-colors"
             >
               Kayıt Ol
             </button>

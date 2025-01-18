@@ -105,7 +105,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-sm sm:text-base w-full sm:w-auto sm:px-8 mt-2"
+                className="block w-full py-2 px-4 text-center bg-[#FFC700] text-black rounded-lg hover:bg-[#ffc800bf] transition-colors"
               >
                 Gönder
               </button>
