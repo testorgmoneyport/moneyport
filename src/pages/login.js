@@ -131,7 +131,7 @@ export default function Login() {
             </div>
              {/* Şifremi Unuttum Linki */}
              <div className="text-right">
-  <Link href="/forgotpassword" className="text-blue-500 text-sm hover:underline">
+  <Link href="/forgotpassword" className="text-[#64748B] text-sm hover:underline">
     Şifremi Unuttum
   </Link>
 </div>
