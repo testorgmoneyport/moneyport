@@ -1,5 +1,6 @@
 import { getPool } from '../../utils/db';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     // Email kontrolü
-    const userQuery = 'SELECT * FROM users WHERE user_email = $1';
+    const userQuery = 'SELECT * FROM users WHERE email = $1';
     const result = await client.query(userQuery, [email]);
 
     if (result.rows.length === 0) {
@@ -33,15 +34,28 @@ export default async function handler(req, res) {
       return res.status(401).json({ message: 'Geçersiz email veya şifre' });
     }
 
-    // Giriş başarılı
+    // JWT token'ı oluşturuyoruz
+    const token = jwt.sign(
+      { id: user.id, name: user.name, surname: user.surname, role: user.role },
+      process.env.JWT_SECRET, // .env dosyasından alınan secret key
+      { expiresIn: '1h' } // Token'ın geçerlilik süresi
+    );
+
+    // Giriş başarılı, token'ı döndürüyoruz
     res.status(200).json({
       message: 'Giriş başarılı',
+      token, // Token'ı dönüyoruz
       user: {
         id: user.id,
-        username: user.user_name,
-        email: user.user_email,
+        name: user.name,
+        surname: user.surname,
+        username: user.username,
+        email: user.email,
+        phone: user.phone,
         portfolioSize: user.portfolio_size,
         role: user.role,
+        createdAt: user.created_at,
+        updatedAt: user.updated_at,
       },
     });
   } catch (error) {
