@@ -16,6 +16,7 @@ export default function Register() {
     confirmPassword: "",
     portfolioSize: "0 - 50.000₺",
     termsAccepted: false,
+    privacyAccepted: false,
   });
 
   const handleChange = (e) => {
@@ -105,10 +106,25 @@ export default function Register() {
   };
 
   return (
-    <div className="container mx-auto">
-      <h1 className="py-16 text-3xl text-center font-bold">
-        MoneyPort'un Ayrıcalıklı Dünyasına Katılmana 1 Adım Kaldı!
-      </h1>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Breadcrumb */}
+      <div className="py-12">
+        <nav className="flex text-gray-600 text-sm">
+          <a href="/" className="hover:text-gray-900">Ana Sayfa</a>
+          <span className="mx-2">/</span>
+          <span className="text-gray-900">Kayıt Ol</span>
+        </nav>
+      </div>
+
+      <div className="flex justify-center pb-8">
+  <h1 className="text-center text-2xl sm:text-3xl lg:text-4xl font-bold">
+    MoneyPort'un Ayrıcalıklı Dünyasına Katılmana 1 Adım Kaldı!
+  </h1>
+</div>
+
+
+
+
       <div className="flex flex-col-reverse md:flex-row w-full gap-10">
         {/* Sol Sütun */}
         <div className="w-full md:w-1/2 flex items-center justify-center">
@@ -117,7 +133,7 @@ export default function Register() {
             alt="Phone"
             width={1000}
             height={1000}
-            className="object-contain"
+            className="object-contain px-4 sm:px-0"
           />
         </div>
 
@@ -125,11 +141,11 @@ export default function Register() {
         <div className="w-full md:w-1/2 flex items-center justify-center">
           <form
             onSubmit={handleSubmit}
-            className="w-full max-w-md flex flex-col gap-4 border border-gray-400 p-4"
+            className="w-full max-w-md flex flex-col gap-4 border border-gray-400 p-4 rounded-lg"
           >
             <h1 className="font-semibold text-2xl">Kayıt Ol</h1>
             <p className="text-[#64748B]">
-              MoneyPort’a kayıt olmak tamamen ücretsiz! Sende MoneyPort’a hemen
+              MoneyPort’a kayıt olmak tamamen ücretsiz! Sen de MoneyPort’a hemen
               kayıt ol, tüm yatırımlarını tek bir noktadan yönetmenin keyfini
               yaşa!
             </p>
@@ -183,6 +199,7 @@ export default function Register() {
                 value={formData.username}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
+                required
               />
             </div>
 
@@ -201,6 +218,7 @@ export default function Register() {
                 value={formData.email}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
+                required
               />
             </div>
             <div>
@@ -233,10 +251,11 @@ export default function Register() {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Şifre"
+                placeholder="Şifrenizi girin."
                 value={formData.password}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
+                required
               />
             </div>
 
@@ -251,7 +270,7 @@ export default function Register() {
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
-                placeholder="Şifre Tekrarı"
+                placeholder="Şifrenizi tekrar girin"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
@@ -306,6 +325,7 @@ export default function Register() {
                 type="checkbox"
                 id="privacyAccepted"
                 name="privacyAccepted"
+                checked={formData.privacyAccepted}
                 onChange={handleChange}
               />
               <label
