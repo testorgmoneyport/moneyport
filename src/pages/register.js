@@ -7,10 +7,11 @@ export default function Register() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
+    surname: "",
     username: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
     portfolioSize: "0 - 50.000₺",
@@ -20,18 +21,49 @@ export default function Register() {
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
+
+    // Genel form verisini güncelle
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
+
+    // Eğer input telefon alanıysa formatlama yap
+    if (name === "phone") {
+      let numericValue = value.replace(/\D/g, ""); // Sadece rakamları al
+      numericValue = numericValue.slice(0, 11); // Maksimum 11 karakter sınırı
+
+      let formattedValue = "";
+      if (numericValue.length > 0) {
+        formattedValue = `0${numericValue.slice(1, 4)}`;
+      }
+      if (numericValue.length > 4) {
+        formattedValue += ` - ${numericValue.slice(4, 7)}`;
+      }
+      if (numericValue.length > 7) {
+        formattedValue += ` - ${numericValue.slice(7, 11)}`;
+      }
+
+      setFormData((prevData) => ({
+        ...prevData,
+        phone: formattedValue,
+      }));
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (!/[0-9]/.test(e.key) && e.key !== "Backspace") {
+      e.preventDefault();
+    }
   };
 
   const resetForm = () => {
     setFormData({
-      firstName: "",
-      lastName: "",
+      name: "",
+      surname: "",
       username: "",
       email: "",
+      phone: "",
       password: "",
       confirmPassword: "",
       portfolioSize: "0 - 50.000₺",
@@ -55,10 +87,11 @@ export default function Register() {
 
     try {
       const response = await axios.post("/api/auth", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+        name: formData.name,
+        surname: formData.surname,
         username: formData.username,
         email: formData.email,
+        phone: formData.phone,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
         portfolioSize: formData.portfolioSize,
@@ -119,42 +152,38 @@ export default function Register() {
             {/* Form alanları */}
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="name"
                 className="block mb-2 font-medium text-gray-700"
               >
                 Ad
               </label>
               <input
                 type="text"
-                id="firstName"
-                name="firstName"
-                placeholder="Adınızı girin"
-                value={formData.firstName}
+                id="name"
+                name="name"
+                placeholder="Mehmet, Ayşe vb."
+                value={formData.name}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
-                required
               />
             </div>
-
             <div>
               <label
-                htmlFor="lastName"
+                htmlFor="surname"
                 className="block mb-2 font-medium text-gray-700"
               >
                 Soyad
               </label>
               <input
                 type="text"
-                id="lastName"
-                name="lastName"
-                placeholder="Soyadınızı girin"
-                value={formData.lastName}
+                id="surname"
+                name="surname"
+                placeholder="Yıldız, Kara vb."
+                value={formData.surname}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
-                required
               />
             </div>
-
             <div>
               <label
                 htmlFor="username"
@@ -166,7 +195,7 @@ export default function Register() {
                 type="text"
                 id="username"
                 name="username"
-                placeholder="Kullanıcı Adınızı girin"
+                placeholder="mehmetyıldız22 vb."
                 value={formData.username}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
@@ -185,11 +214,29 @@ export default function Register() {
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Mail adresinizi girin"
+                placeholder="mehmetyıl22@gmail.com"
                 value={formData.email}
                 onChange={handleChange}
                 className="p-2 border border-gray-300 rounded w-full"
                 required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="phone"
+                className="block mb-2 font-medium text-gray-700"
+              >
+                Telefon Numarası
+              </label>
+              <input
+                type="phone"
+                id="phone"
+                name="phone"
+                placeholder="0541 395 55 45"
+                value={formData.phone}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                className="p-2 border border-gray-300 rounded w-full"
               />
             </div>
 
@@ -266,7 +313,10 @@ export default function Register() {
                 checked={formData.termsAccepted}
                 onChange={handleChange}
               />
-              <label htmlFor="termsAccepted" className="text-[#64748B] text-[12px]">
+              <label
+                htmlFor="termsAccepted"
+                className="text-[#64748B] text-[12px]"
+              >
                 Hesap Sözleşmesi ve Ekleri Kabul Ediyorum.
               </label>
             </div>
@@ -278,7 +328,10 @@ export default function Register() {
                 checked={formData.privacyAccepted}
                 onChange={handleChange}
               />
-              <label htmlFor="privacyAccepted" className="text-[#64748B] text-[12px]">
+              <label
+                htmlFor="privacyAccepted"
+                className="text-[#64748B] text-[12px]"
+              >
                 İletişim bilgilerime kampanya, tanıtım ve reklam içerikli ticari
                 elektronik ileti gönderilmesine, bu amaçla kişisel verilerimin
                 işlenmesine ve tedarikçilerinizle paylaşılmasına izin veriyorum.{" "}

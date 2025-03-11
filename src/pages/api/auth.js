@@ -6,10 +6,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Yalnızca POST metodu destekleniyor' });
   }
 
-  const { username, email, password, confirmPassword, portfolioSize } = req.body;
+  const { name, surname, username, email, phone, password, confirmPassword, portfolioSize } = req.body;
 
   // Form validation
-  if (!username || !email || !password || !confirmPassword || !portfolioSize) {
+  if (!name || !surname || !username || !email || !phone || !password || !confirmPassword || !portfolioSize) {
     return res.status(400).json({ message: 'Tüm alanları doldurun' });
   }
 
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 
     // Email kontrolü
     const emailCheck = await client.query(
-      'SELECT * FROM users WHERE user_email = $1',
+      'SELECT * FROM users WHERE email = $1',
       [email]
     );
 
@@ -46,26 +46,44 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Bu email adresi zaten kullanımda' });
     }
 
+    // Telefon numarası kontrolü
+    const phoneCheck = await client.query(
+      'SELECT * FROM users WHERE phone = $1',
+      [phone]
+    );
+
+    if (phoneCheck.rows.length > 0) {
+      await client.query('ROLLBACK');
+      return res.status(400).json({ message: 'Bu telefon numarası zaten kullanımda' });
+    }
+
     // Şifreyi hashleme
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Kullanıcı verilerini veritabanına ekle
     const query = `
       INSERT INTO users (
-        user_name, 
-        user_email, 
+        name, 
+        surname, 
+        username, 
+        email, 
+        phone, 
         password_hash, 
         portfolio_size,
         role,
-        created_at
+        created_at,
+        updated_at
       )
-      VALUES ($1, $2, $3, $4, $5, NOW())
-      RETURNING id, user_name, user_email, portfolio_size, role, created_at
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW(), NOW())
+      RETURNING id, name, surname, username, email, phone, portfolio_size, role, created_at, updated_at
     `;
     
     const values = [
+      name,
+      surname,
       username, 
-      email, 
+      email,
+      phone,
       hashedPassword, 
       portfolioSize,
       'user' // default role
